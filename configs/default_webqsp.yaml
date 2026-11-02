@@ -1,0 +1,54 @@
+# SCN configuration preset
+llm_model_name: "models/Llama-3-8B-Instruct"
+llm_hidden_size: 4096
+
+use_lora: true
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.1
+lora_target_modules:
+  - "q_proj"
+  - "v_proj"
+
+kge_dim: 512
+kge_raw_dim: 512
+fusion_type: "weighted"
+fusion_lambda: 0.7
+
+input_projector_hidden_dim: null
+input_projector_dropout: 0.3
+input_projector_lr: 1.0e-4
+
+projector_hidden_dims:
+  - 2048
+  - 1024
+projector_dropout: 0.1
+projector_activation: "gelu"
+
+temperature: 0.1
+hard_negative_weight: 2.0
+max_hops: 10
+learning_rate: 1.0e-4
+projector_lr: 1.0e-4
+lora_lr: 1.0e-4
+weight_decay: 0.01
+warmup_steps: 500
+max_grad_norm: 1.0
+batch_size: 1
+gradient_accumulation_steps: 4
+num_epochs: 20
+
+beam_size: 5
+inference_temperature: 1.0
+
+train_ratio: 0.9
+train_file: "datasets/RoG-webqsp-train.jsonl"
+val_file: null
+
+log_interval: 10
+val_interval: 1
+save_best_only: true
+
+kge_embeddings_dir: "kg_preprocessing/output/webqsp_kge_model_rotate_latest/embeddings"
+kge_mapping_dir: "kg_preprocessing/output/webqsp_kge_model_rotate_latest/trained_model/training_triples"
+output_dir: "./output/scn_ckp_webqsp"
